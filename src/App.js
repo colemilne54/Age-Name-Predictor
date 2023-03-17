@@ -7,10 +7,16 @@ export default function App() {
   const [age, getAge] = useState([]);
   const [input, setInput] = useState('');
 
+  function DisplayAge() {
+    if (age > 0) {
+      return <Typography>{age.age}</Typography>;
+    }
+  }
+
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setInput((values) => ({ ...values, [name]: value }));
+    setInput(value);
   };
 
   const handleSubmit = (event) => {
@@ -42,7 +48,7 @@ export default function App() {
           aria-label="First name"
           // defaultValue={'First Name'}
           placeholder="First name"
-          name="firstName"
+          name="input"
           value={input.firstName}
           onChange={handleChange}
         />
@@ -56,6 +62,7 @@ export default function App() {
           Submit
         </Button>
       </form>
+      <DisplayAge />
     </div>
   );
 }

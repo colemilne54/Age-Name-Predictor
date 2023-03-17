@@ -8,8 +8,11 @@ import 'react-circular-progressbar/dist/styles.css';
 export default function App() {
   const [age, getAge] = useState([]);
   const [gender, getGender] = useState([]);
-  const [nation, getNation] = useState([]);
+  const [nations, getNations] = useState([]);
   const [input, setInput] = useState('');
+
+  let regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
+  // console.log(regionNames.of('IE')); // "United States"
 
   function DisplayAge() {
     if (age.age > 0) {
@@ -69,6 +72,27 @@ export default function App() {
     }
   }
 
+  function DisplayNation() {
+    try {
+      if (nations.country.length > 0) {
+        return (
+          <div>
+            {nations.country.map((nation) => {
+              var prob = Math.round(nation.probability * 10000) / 100;
+              return (
+                <p>{`${regionNames.of(
+                  nation.country_id
+                )} Probability: ${prob}%`}</p>
+              );
+            })}
+          </div>
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -116,7 +140,7 @@ export default function App() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        getNation(data);
+        getNations(data);
       })
       .catch((err) => {
         console.log(err.message);
@@ -150,6 +174,7 @@ export default function App() {
       </form>
       <DisplayAge />
       <DisplayGender />
+      <DisplayNation />
     </div>
   );
 }

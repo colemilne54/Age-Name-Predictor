@@ -1,20 +1,21 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import './style.css';
+import { Typography, TextField, Button } from '@mui/material';
 
 export default function App() {
   const [age, getAge] = useState([]);
-  const [input, setInputs] = useState({});
+  const [input, setInput] = useState({});
 
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
+    setInput((values) => ({ ...values, [name]: value }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    url = 'https://api.agify.io?name=' + inputs[0];
+    var url = 'https://api.agify.io?name=' + input[0];
 
     fetch(url, {
       method: 'GET',
@@ -27,13 +28,33 @@ export default function App() {
       })
       .catch((err) => {
         console.log(err.message);
+        console.log(url);
       });
   };
 
   return (
     <div>
-      <h1>Hello StackBlitz!</h1>
-      <p>Start editing to see some magic happen :)</p>
+      <Typography variant="h4">Age-Name Predictor</Typography>
+      <Typography variant="p">Enter your name:</Typography>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          style={{ width: '200px' }}
+          aria-label="First name"
+          defaultValue={'First Name'}
+          name="firstName"
+          value={input.firstName}
+          onChange={handleChange}
+        />
+        <br />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          style={{ marginTop: 15 }}
+        >
+          Submit
+        </Button>
+      </form>
     </div>
   );
 }

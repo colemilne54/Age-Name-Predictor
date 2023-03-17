@@ -1,2 +1,8 @@
 {age: 62, count: 298219, name: "Michael"}
 {count: 2087284, gender: "male", name: "Michael", probability: 1}
+{country: Array[5], name: "Michael"}
+  country: Array[5]
+  0: Object
+  country_id: "AT"
+  probability: 0.064
+  <prototype>: Object

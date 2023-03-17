@@ -8,6 +8,7 @@ import 'react-circular-progressbar/dist/styles.css';
 export default function App() {
   const [age, getAge] = useState([]);
   const [gender, getGender] = useState([]);
+  const [nation, getNation] = useState([]);
   const [input, setInput] = useState('');
 
   function DisplayAge() {
@@ -37,12 +38,6 @@ export default function App() {
               // Colors
               pathColor: '#01A6EA',
               textColor: '#01A6EA',
-              // trailColor: '#FFB1CB',
-              // blue
-              // #01A6EA
-              // pink
-              // #FFB1CB
-              // backgroundColor: '#3e98c7',
             })}
           />
         </>
@@ -67,12 +62,6 @@ export default function App() {
               // Colors
               pathColor: '#FFB1CB',
               textColor: '#FFB1CB',
-              // trailColor: '#FFB1CB',
-              // blue
-              // #01A6EA
-              // pink
-              // #FFB1CB
-              // backgroundColor: '#3e98c7',
             })}
           />
         </>
@@ -90,6 +79,7 @@ export default function App() {
     event.preventDefault();
     var ageUrl = 'https://api.agify.io?name=' + input;
     var genderUrl = 'https://api.genderize.io/?name=' + input;
+    var nationUrl = 'https://api.nationalize.io/?name=' + input;
 
     fetch(ageUrl, {
       method: 'GET',
@@ -117,6 +107,20 @@ export default function App() {
       .catch((err) => {
         console.log(err.message);
         console.log(genderUrl);
+      });
+
+    fetch(nationUrl, {
+      method: 'GET',
+      headers: {},
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        getNation(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        console.log(nationUrl);
       });
   };
 

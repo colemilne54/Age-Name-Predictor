@@ -12,16 +12,20 @@ export default function App() {
 
   function DisplayAge() {
     if (age.age > 0) {
-      return <Typography variant="p">{age.age}</Typography>;
+      return <Typography variant="p">Age: {age.age}</Typography>;
     }
   }
 
   function DisplayGender() {
     if (gender.gender == 'male' || gender.gender == 'female') {
       return (
-        <Typography variant="p">
-          {gender.gender} probability: {gender.probability * 100}
-        </Typography>
+        <>
+          <Typography>{`${gender.gender}`}</Typography>
+          <CircularProgressbar
+            value={gender.probability * 100}
+            text={`${gender.probability * 100}%`}
+          />
+        </>
       );
     }
   }

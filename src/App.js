@@ -1,8 +1,10 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import './style.css';
 
 export default function App() {
-  const [name, setName] = useState({});
+  const [age, getAge] = useState([]);
+  const [input, setInputs] = useState({});
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -12,31 +14,16 @@ export default function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(inputs);
-    var count = 1;
-    url = 'https://api.api-ninjas.com/v1/dogs?';
-
-    for (let name in inputs) {
-      if (inputs[name] > -1) {
-        url = url + name + '=' + inputs[name];
-        if (count != Object.keys(inputs).length) {
-          url += '&';
-        }
-        console.log(url);
-      }
-      count += 1;
-    }
+    url = 'https://api.agify.io?name=' + inputs[0];
 
     fetch(url, {
       method: 'GET',
-      headers: {
-        'X-Api-Key': 'Qrj+hE8c3dEAUqXdL3ISUQ==56KpptbJlFkbqWt3',
-      },
+      headers: {},
     })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        getBreeds(data);
+        getAge(data);
       })
       .catch((err) => {
         console.log(err.message);

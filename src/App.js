@@ -5,7 +5,7 @@ import { Typography, TextField, Button } from '@mui/material';
 
 export default function App() {
   const [age, getAge] = useState([]);
-  const [input, setInput] = useState({});
+  const [input, setInput] = useState('');
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -15,7 +15,7 @@ export default function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    var url = 'https://api.agify.io?name=' + input[0];
+    var url = 'https://api.agify.io?name=' + input;
 
     fetch(url, {
       method: 'GET',
@@ -40,7 +40,8 @@ export default function App() {
         <TextField
           style={{ width: '200px' }}
           aria-label="First name"
-          defaultValue={'First Name'}
+          // defaultValue={'First Name'}
+          placeholder="First name"
           name="firstName"
           value={input.firstName}
           onChange={handleChange}

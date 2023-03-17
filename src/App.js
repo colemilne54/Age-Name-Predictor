@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import './style.css';
 import { Typography, TextField, Button } from '@mui/material';
-import { CircularProgressbar } from 'react-circular-progressbar';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 export default function App() {
@@ -17,13 +17,63 @@ export default function App() {
   }
 
   function DisplayGender() {
-    if (gender.gender == 'male' || gender.gender == 'female') {
+    if (gender.gender == 'male') {
       return (
         <>
           <Typography>{`${gender.gender}`}</Typography>
           <CircularProgressbar
             value={gender.probability * 100}
             text={`${gender.probability * 100}%`}
+            styles={buildStyles({
+              // Text size
+              textSize: '16px',
+              strokeLinecap: 'butt',
+              // How long animation takes to go from one percentage to another, in seconds
+              pathTransitionDuration: 0.5,
+
+              // Can specify path transition in more detail, or remove it entirely
+              // pathTransition: 'none',
+
+              // Colors
+              pathColor: '#01A6EA',
+              textColor: '#01A6EA',
+              // trailColor: '#FFB1CB',
+              // blue
+              // #01A6EA
+              // pink
+              // #FFB1CB
+              // backgroundColor: '#3e98c7',
+            })}
+          />
+        </>
+      );
+    } else if (gender.gender == 'female') {
+      return (
+        <>
+          <Typography>{`${gender.gender}`}</Typography>
+          <CircularProgressbar
+            value={gender.probability * 100}
+            text={`${gender.probability * 100}%`}
+            styles={buildStyles({
+              // Text size
+              textSize: '16px',
+              strokeLinecap: 'butt',
+              // How long animation takes to go from one percentage to another, in seconds
+              pathTransitionDuration: 0.5,
+
+              // Can specify path transition in more detail, or remove it entirely
+              // pathTransition: 'none',
+
+              // Colors
+              pathColor: '#FFB1CB',
+              textColor: '#FFB1CB',
+              // trailColor: '#FFB1CB',
+              // blue
+              // #01A6EA
+              // pink
+              // #FFB1CB
+              // backgroundColor: '#3e98c7',
+            })}
           />
         </>
       );

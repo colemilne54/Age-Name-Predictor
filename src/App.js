@@ -2,14 +2,27 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import './style.css';
 import { Typography, TextField, Button } from '@mui/material';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 export default function App() {
   const [age, getAge] = useState([]);
+  const [gender, getGender] = useState([]);
   const [input, setInput] = useState('');
 
   function DisplayAge() {
-    if (age > 0) {
-      return <Typography>{age.age}</Typography>;
+    if (age.age > 0) {
+      return <Typography variant="p">{age.age}</Typography>;
+    }
+  }
+
+  function DisplayGender() {
+    if (gender.gender == 'male' || gender.gender == 'female') {
+      return (
+        <Typography variant="p">
+          {gender.gender} probability: {gender.probability * 100}
+        </Typography>
+      );
     }
   }
 
@@ -21,9 +34,10 @@ export default function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    var url = 'https://api.agify.io?name=' + input;
+    var ageUrl = 'https://api.agify.io?name=' + input;
+    var genderUrl = 'https://api.genderize.io/?name=' + input;
 
-    fetch(url, {
+    fetch(ageUrl, {
       method: 'GET',
       headers: {},
     })
@@ -34,7 +48,21 @@ export default function App() {
       })
       .catch((err) => {
         console.log(err.message);
-        console.log(url);
+        console.log(ageUrl);
+      });
+
+    fetch(genderUrl, {
+      method: 'GET',
+      headers: {},
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        getGender(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        console.log(genderUrl);
       });
   };
 
@@ -63,6 +91,7 @@ export default function App() {
         </Button>
       </form>
       <DisplayAge />
+      <DisplayGender />
     </div>
   );
 }
